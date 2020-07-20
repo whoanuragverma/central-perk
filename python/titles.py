@@ -3,8 +3,10 @@ import pandas as pd
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
+from tensorflow.keras import models, layers
+import json
 # Reading the dataset and processing it
-df = pd.read_excel("models/data/titles.xlsx")
+df = pd.read_excel("data/titles.xlsx")
 titles = list(df['Title'])
 titles = [title.lower() for title in titles]
 
@@ -28,5 +30,20 @@ input_sentences = np.array(pad_sequences(
 
 xs, labels = input_sentences[:, :-1], input_sentences[:, -1]
 ys = to_categorical(labels, num_classes=tot_words)
-
+print(max_len)
 # Define model and train
+model = models.Sequential([
+    layers.Embedding(tot_words, 150, input_length=max_len-1),
+    layers.Bidirectional(layers.LSTM(150)),
+    layers.Dense(tot_words, activation='softmax')]
+)
+
+model.summary()
+
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy', metrics=['acc'])
+history = model.fit(xs, ys, epochs=50, verbose=1)
+
+model.save('models/title/model.h5')
+with open('models/title/tokens.json', 'w', encoding='utf-8') as f:
+    json.dump(tokenizer.to_json(), f)
