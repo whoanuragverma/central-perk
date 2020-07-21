@@ -8,10 +8,9 @@ import json
 # Reading the dataset and processing it
 df = pd.read_excel("data/titles.xlsx")
 titles = list(df['Title'])
-titles = [title.lower() for title in titles]
 
 # Conversion to tokens
-tokenizer = Tokenizer()
+tokenizer = Tokenizer(lower=True)
 tokenizer.fit_on_texts(titles)
 
 tot_words = len(tokenizer.word_index) + 1
@@ -33,8 +32,12 @@ ys = to_categorical(labels, num_classes=tot_words)
 print(max_len)
 # Define model and train
 model = models.Sequential([
-    layers.Embedding(tot_words, 150, input_length=max_len-1),
-    layers.Bidirectional(layers.LSTM(150)),
+    layers.Embedding(tot_words, 300, input_length=max_len-1),
+    layers.Bidirectional(layers.LSTM(256, activation='tanh',
+                                     return_sequences=True)),
+    layers.LSTM(128, activation='tanh', return_sequences=False),
+    layers.Dense(512, activation='relu'),
+    layers.Dropout(0.3),
     layers.Dense(tot_words, activation='softmax')]
 )
 

@@ -13,7 +13,7 @@ while True:
     seed_text = "The one with the " + \
         list(tokenizer.word_index.keys())[random.randint(
             0, (len(tokenizer.word_index)-1))]
-    for _ in range(random.randint(0, 6)):
+    for _ in range(random.randint(2, 6)):
         token_list = tokenizer.texts_to_sequences([seed_text])[0]
         token_list = pad_sequences([token_list], maxlen=10, padding='pre')
         predicted = model.predict_classes(token_list, verbose=0)
@@ -22,6 +22,6 @@ while True:
             if index == predicted:
                 output_word = word
                 break
-        if(len(output_word) > 1):
+        if(output_word != "ii" and len(output_word) > 1):
             seed_text += " " + output_word
     print(seed_text)
