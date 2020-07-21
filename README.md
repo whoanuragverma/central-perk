@@ -33,4 +33,6 @@ Please make sure to update tests as appropriate.
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Notice
-The dialogues and episode titles may be subject to copyright by the writers Marta Kauffman & David Crane or the production hous. I have downloaded and processed the transcripts from this [repository](https://github.com/puneeth019/FRIENDS).
+The dialogues and episode titles may be subject to copyright by the writers Marta Kauffman & David Crane or the production house. 
+
+I have downloaded and processed the transcripts from this [repository](https://github.com/puneeth019/FRIENDS).
