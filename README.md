@@ -18,9 +18,9 @@ pip install tensorflow
 
 - [x] Scrape transcripts and separate titles and dialogues.
 - [x] Generate titles
-- [ ] Remove unknown alphabets from title
-- [ ] Generate texts for each character
-- [ ] Convert for tensorflow.js
+- [x] Remove unknown alphabets from title
+- [x] Generate texts for each character
+- [ ] <s>Convert for tensorflow.js</s>
 - [ ] Deploy as a React app
 
 
